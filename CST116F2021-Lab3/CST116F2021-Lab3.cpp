@@ -1,20 +1,155 @@
-// CST116F2021-Lab3.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+/*
+
+1) Make base functions
+2) do the meat of the of the fucntions
+3) Send over Base to james
+4) recieve base from James and Create a derived class from james base
+5) test both functions and run
+6) sumbit
+
+
+Default constructor
+Constructor copy
+Deconstructor
+Getters and Setters
+Overloaded = copy
+Overloaded = move
+*/
+
 
 #include <iostream>
+#include <string>
+
+using std::cout;
+using std::endl;
+using std::string;
+
+class Person
+{
+private:
+
+    string firstName;
+    string lastName;
+    int age=0;
+    char gender;
+
+public:
+    // Default constructor
+    Person() {}
+
+    // Parameterized constructor
+    Person(string& firstName, string& lastName, int age, char& gender)
+    {
+        this->firstName = firstName;
+        this->lastName = lastName;
+        this->age = age;
+        this->gender = gender;
+    }
+
+    // Copy constructor {
+    Person(const Person& copy)
+    {
+        this->firstName = copy.firstName;
+        this->lastName = copy.lastName;
+        this->age = copy.age;
+        this->gender = copy.gender;
+    }
+
+    // Move constructor
+    Person(Person&& move) noexcept
+    {
+        Person(Move);
+
+        // Call move destructor
+        move.~Person();
+    }
+    
+    // Destructor
+    ~Person()
+    {
+   
+    }
+
+
+    // Getters 
+    string getFirstName() 
+    {
+        return this->firstName; 
+    }
+    string getLastName() 
+    {
+        return this->lastName; 
+    }
+    int getAge() 
+    {
+        return this->age;
+    }
+    char getGender()
+    {
+        return this->gender; 
+    }
+
+    // Setters
+    void setFirstName(string firstName) 
+    {
+        this->firstName = firstName;
+    }
+
+    void setLastName(string lastName) 
+    {
+        this->lastName = lastName;
+    }
+
+    void setAge(int age)
+    {
+        this->age = age;
+    }
+
+    void setGender(char gender)
+    {
+        this->gender = gender;
+    }
+
+    // Overload copy operator
+    Person& operator=(Person& copy)  
+    {
+        this->firstName = copy.firstName;
+        this->lastName = copy.lastName;
+        this->age = copy.age;
+        this->gender = copy.gender;
+
+        return *this;
+    }
+
+
+    // Overload move operator
+    Person& operator=(Person&& move) noexcept
+    {
+  
+        *this = move;
+        // Delete other
+        move.~Person();
+        return *this;
+    }
+
+};
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Person p1;
+ 
+    p1.setFirstName("Freddy");
+    p1.setLastName("Hernandez");
+    p1.setAge(18);
+    p1.setGender('M');
+
+
+
+    cout << "First Name: "<< p1.getFirstName() << endl;
+    cout << "Last Name: "<< p1.getLastName() << endl;
+    cout << "Age: "<< p1.getAge() << endl;
+    cout << "Gender: "<< p1.getGender() << endl;
+
+
+
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
